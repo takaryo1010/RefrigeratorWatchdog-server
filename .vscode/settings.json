@@ -1,0 +1,9 @@
+{
+  "cSpell.words": ["Returing"],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "cmake.configureSettings": {},
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  }
+}

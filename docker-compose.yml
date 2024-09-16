@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  # MySQL
+  db:
+    image: mysql:8.0.27
+    platform: linux/amd64
+    ports:
+      - 3306:3306
+    container_name: mysql_host
+    environment:
+      MYSQL_ROOT_PASSWORD: P@ssw0rd
+      MYSQL_DATABASE: test_database
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      TZ: "Asia/Tokyo"
+    restart: always
