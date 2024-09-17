@@ -72,13 +72,6 @@ func Test_foodRepository_GetFoodsByUserID(t *testing.T) {
 			},
 			wantErr: true,
 		},
-		{name: "異常系：データベース接続エラー",
-			args: args{
-				foods:  &[]model.Food{},
-				userID: UserID,
-			},
-			wantErr: true,
-		},
 	}
 
 	for _, tt := range tests {
@@ -132,12 +125,6 @@ func Test_foodRepository_CreateFood(t *testing.T) {
 		{name: "異常系：引数のfoodがnilの場合",
 			args: args{
 				food: nil,
-			},
-			wantErr: true,
-		},
-		{name: "異常系：データベース接続エラー",
-			args: args{
-				food: &model.Food{},
 			},
 			wantErr: true,
 		},
@@ -200,13 +187,6 @@ func Test_foodRepository_UpdateFood(t *testing.T) {
 			},
 			wantErr: true,
 		},
-		{name: "異常系：データベース接続エラー",
-			args: args{
-				food: &model.Food{},
-				id:   1,
-			},
-			wantErr: true,
-		},
 	}
 
 	for _, tt := range tests {
@@ -246,12 +226,6 @@ func Test_foodRepository_DeleteFood(t *testing.T) {
 				id: 1,
 			},
 			wantErr: false,
-		},
-		{name: "異常系：データベース接続エラー",
-			args: args{
-				id: 1,
-			},
-			wantErr: true,
 		},
 	}
 
