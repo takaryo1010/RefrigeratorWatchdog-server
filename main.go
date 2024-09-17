@@ -17,6 +17,13 @@ func main() {
 	foodRepository := repository.NewFoodRepository(db)
 	foodUsecase := usecase.NewFoodUsecase(foodRepository, foodValidator)
 	foodController := controller.NewFoodController(foodUsecase)
-	e := router.NewRouter(foodController)
+
+	userValidator := validator.NewUserValidator()
+	userRepository := repository.NewUserRepository(db)
+	userUsecase := usecase.NewUserUsecase(userRepository, userValidator)
+	userController := controller.NewUserController(userUsecase)
+
+	e := router.NewRouter(foodController, userController)
+
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", os.Getenv("PORT"))))
 }

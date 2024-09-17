@@ -10,7 +10,7 @@ import (
 
 // IFoodRepository is an interface for managing food data.
 type IFoodRepository interface {
-	GetFoodByUserID(food *model.Food, userID uint) error
+	GetFoodsByUserID(foods *[]model.Food, userID uint) error
 	CreateFood(food *model.Food) error
 	UpdateFood(food *model.Food, id uint) error
 	DeleteFood(id uint) error
@@ -25,15 +25,15 @@ func NewFoodRepository(db *gorm.DB) IFoodRepository {
 	return &foodRepository{db}
 }
 
-func (fr *foodRepository) GetFoodByUserID(food *model.Food, userID uint) error {
-	if err := fr.db.First(food, "user_id = ?", userID).Error; err != nil {
+func (fr *foodRepository) GetFoodsByUserID(foods *[]model.Food, userID uint) error {
+	if err := fr.db.Where("user_id = ?", userID).Find(&foods).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
 func (fr *foodRepository) CreateFood(food *model.Food) error {
-	if err :=fr.db.Create(food).Error; err != nil {
+	if err := fr.db.Create(food).Error; err != nil {
 		return err
 	}
 	return nil

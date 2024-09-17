@@ -10,7 +10,7 @@ import (
 )
 
 type IFoodController interface {
-	GetFoodByUserID(c echo.Context) error
+	GetFoodsByUserID(c echo.Context) error
 	CreateFood(c echo.Context) error
 	UpdateFood(c echo.Context) error
 	DeleteFood(c echo.Context) error
@@ -23,18 +23,18 @@ func NewFoodController(fu usecase.IFoodUsecase) IFoodController {
 	return &foodController{fu}
 }
 
-func (fc *foodController) GetFoodByUserID(c echo.Context) error {
+func (fc *foodController) GetFoodsByUserID(c echo.Context) error {
 	userID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, err)
 	}
 
-	food, err := fc.fu.GetFoodByUserID(uint(userID))
+	foods, err := fc.fu.GetFoodsByUserID(uint(userID))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
-	return c.JSON(http.StatusOK, food)
+	return c.JSON(http.StatusOK, foods)
 }
 
 func (fc *foodController) CreateFood(c echo.Context) error {
@@ -80,4 +80,3 @@ func (fc *foodController) DeleteFood(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, "deleted")
 }
-

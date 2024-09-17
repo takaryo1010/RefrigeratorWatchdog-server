@@ -7,7 +7,7 @@ import (
 	"github.com/labstack/echo/middleware"
 )
 
-func NewRouter(fc controller.IFoodController) *echo.Echo {
+func NewRouter(fc controller.IFoodController, uc controller.IUserController) *echo.Echo {
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"http://localhost:3000"},
@@ -18,11 +18,42 @@ func NewRouter(fc controller.IFoodController) *echo.Echo {
 	}))
 
 	f := e.Group("/foods")
-	f.GET("/:id", fc.GetFoodByUserID)
+	f.GET("/:id", fc.GetFoodsByUserID)
 	f.POST("", fc.CreateFood)
 	f.PUT("/:id", fc.UpdateFood)
 	f.DELETE("/:id", fc.DeleteFood)
 
+	//POST例
+/*
+	{
+  "name": "オレンジ",
+  "user_id": 1,
+  "original_code": 12456456,
+  "quantity": 5,
+  "expiration_date": "2024-12-15T00:00:00Z",
+  "image_url": "https://example.com/images/orange.jpg",
+  "memo": "新鮮なオレンジだったものです"
+}
+*/
+
+
+	u := e.Group("/users")
+	u.GET("/:email", uc.GetUser)
+	u.POST("", uc.CreateUser)
+	u.PUT("/:email", uc.UpdateUser)
+	// POSTする際にuser情報をすべて送信する必要がある
+	u.DELETE("", uc.DeleteUser)
+
+
+	//POST例
+/*
+
+{
+  "username": "山田太郎",
+  "email": "sample@gmail.com",
+  "password": "password"
+}
+*/
 	return e
 
 }

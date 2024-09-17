@@ -10,9 +10,9 @@ import (
 
 // IUserRepository is an interface for user repository.
 type IUserRepository interface {
-	GetUserByID(user *model.User, email string) error
+	GetUserByEmail(user *model.User, email string) error
 	CreateUser(user *model.User) error
-	UpdateUser(user *model.User, email string) error
+	UpdateUser(user *model.User,email string) error
 	DeleteUser(user *model.User) error
 }
 
@@ -25,7 +25,7 @@ func NewUserRepository(db *gorm.DB) IUserRepository {
 	return &userRepository{db}
 }
 
-func (ur *userRepository) GetUserByID(user *model.User, email string) error {
+func (ur *userRepository) GetUserByEmail(user *model.User, email string) error {
 	if err := ur.db.Where("email = ?", email).First(user).Error; err != nil {
 		return err
 	}
@@ -40,7 +40,7 @@ func (ur *userRepository) CreateUser(user *model.User) error {
 	return nil
 }
 
-func (ur *userRepository) UpdateUser(user *model.User, email string) error {
+func (ur *userRepository) UpdateUser(user *model.User,email string) error {
 	result := ur.db.Model(user).Clauses(clause.Returning{}).Where("email = ?", email).Updates(user)
 	if result.Error != nil {
 		return result.Error

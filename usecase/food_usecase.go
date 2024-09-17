@@ -8,7 +8,7 @@ import (
 )
 
 type IFoodUsecase interface {
-	GetFoodByUserID(userID uint) (model.FoodResponse, error)
+	GetFoodsByUserID(userID uint) ([]model.FoodResponse, error)
 	CreateFood(food model.Food) (model.FoodResponse, error)
 	UpdateFood(food model.Food, id uint) (model.FoodResponse, error)
 	DeleteFood(id uint) error
@@ -23,22 +23,26 @@ func NewFoodUsecase(fr repository.IFoodRepository, fv validator.IFoodValidator) 
 	return &foodUsecase{fr, fv}
 }
 
-func (fu *foodUsecase) GetFoodByUserID(userID uint) (model.FoodResponse, error) {
-	food := model.Food{}
-	if err := fu.fr.GetFoodByUserID(&food, userID); err != nil {
-		return model.FoodResponse{}, err
+func (fu *foodUsecase) GetFoodsByUserID(userID uint) ([]model.FoodResponse, error) {
+	foods := []model.Food{}
+	if err := fu.fr.GetFoodsByUserID(&foods, userID); err != nil {
+		return nil, err
 	}
-	return model.FoodResponse{
-		ID:             food.ID,
-		Name:           food.Name,
-		UserID:         food.UserID,
-		OriginalCode:   food.OriginalCode,
-		Quantity:       food.Quantity,
-		CreatedAt:      food.CreatedAt,
-		ExpirationDate: food.ExpirationDate,
-		ImageURL:       food.ImageURL,
-		Memo:           food.Memo,
-	}, nil
+	resFoods := []model.FoodResponse{}
+	for _, food := range foods {
+		resFoods = append(resFoods, model.FoodResponse{
+			ID:             food.ID,
+			Name:           food.Name,
+			UserID:         food.UserID,
+			OriginalCode:   food.OriginalCode,
+			Quantity:       food.Quantity,
+			CreatedAt:      food.CreatedAt,
+			ExpirationDate: food.ExpirationDate,
+			ImageURL:       food.ImageURL,
+			Memo:           food.Memo,
+		})
+	}
+	return resFoods, nil
 }
 
 func (fu *foodUsecase) CreateFood(food model.Food) (model.FoodResponse, error) {
