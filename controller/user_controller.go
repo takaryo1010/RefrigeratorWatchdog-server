@@ -5,7 +5,7 @@ import (
 	"RefrigeratorWatchdog-server/usecase"
 	"net/http"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 type IUserController interface {
