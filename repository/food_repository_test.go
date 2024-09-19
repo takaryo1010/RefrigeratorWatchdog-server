@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"RefrigeratorWatchdog-server/mocks"
 	"RefrigeratorWatchdog-server/model"
+	"RefrigeratorWatchdog-server/repository/mocks"
 	"errors"
 	"testing"
 	"time"
@@ -227,8 +227,13 @@ func Test_foodRepository_DeleteFood(t *testing.T) {
 			},
 			wantErr: false,
 		},
+		{name: "異常系：idが存在しない場合",
+			args: args{
+				id: 0,
+			},
+			wantErr: true,
+		},
 	}
-
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
