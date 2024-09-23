@@ -8,7 +8,7 @@ import (
 )
 
 // @
-func NewRouter(fc controller.IFoodController, uc controller.IUserController) *echo.Echo {
+func NewRouter(fc controller.IFoodController, uc controller.IUserController ,ic controller.IImageController) *echo.Echo {
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"http://localhost:3000"},
@@ -53,6 +53,9 @@ func NewRouter(fc controller.IFoodController, uc controller.IUserController) *ec
 	     "password": "password"
 	   }
 	*/
+	i := e.Group("/images")
+	i.POST("", ic.UploadImage)
+
 	return e
 
 }

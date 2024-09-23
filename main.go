@@ -23,7 +23,12 @@ func main() {
 	userUsecase := usecase.NewUserUsecase(userRepository, userValidator)
 	userController := controller.NewUserController(userUsecase)
 
-	e := router.NewRouter(foodController, userController)
+	imageRepository := repository.NewImageRepository()
+	imageUsecase := usecase.NewImageUsecase(imageRepository)
+	imageController := controller.NewImageController(imageUsecase)
+
+
+	e := router.NewRouter(foodController, userController, imageController)
 
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%s", os.Getenv("PORT"))))
 }
