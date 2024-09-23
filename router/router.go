@@ -54,6 +54,7 @@ func NewRouter(fc controller.IFoodController, uc controller.IUserController ,ic 
 	   }
 	*/
 	i := e.Group("/images")
+	i.GET("/:imageURL", ic.FetchImage)
 	i.POST("", ic.UploadImage)
 
 	return e

@@ -1,8 +1,10 @@
 package model
 
-import "mime/multipart"
+import (
+	"io"
+)
 
 type Image struct {
-	ImageFile multipart.File
-	Filename string
+	ImageFile io.Reader
+	Filename  string
 }
