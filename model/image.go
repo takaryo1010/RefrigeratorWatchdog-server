@@ -8,3 +8,4 @@ type Image struct {
 	ImageFile io.Reader
 	Filename  string
 }
+

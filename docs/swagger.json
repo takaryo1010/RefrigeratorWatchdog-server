@@ -1,0 +1,492 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/foods": {
+            "post": {
+                "description": "Create food",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "foods"
+                ],
+                "summary": "Create food",
+                "operationId": "create-food",
+                "parameters": [
+                    {
+                        "description": "Food",
+                        "name": "food",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.FoodRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.FoodResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/foods/{id}": {
+            "get": {
+                "description": "Get foods by user id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "foods"
+                ],
+                "summary": "Get foods by user id",
+                "operationId": "get-foods-by-user-id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "UserID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.FoodResponse"
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update food",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "foods"
+                ],
+                "summary": "Update food",
+                "operationId": "update-food",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Food ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Food",
+                        "name": "food",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.FoodRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.FoodResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete food",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "foods"
+                ],
+                "summary": "Delete food",
+                "operationId": "delete-food",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Food ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "deleted",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/images": {
+            "post": {
+                "description": "Upload image",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "image"
+                ],
+                "summary": "Upload image",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "image",
+                        "name": "image",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "image url",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/images/{imageURL}": {
+            "get": {
+                "description": "Fetch image",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "image"
+                ],
+                "summary": "Fetch image",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "image URL（URLとは書いていますが、画像の名前のみで大丈夫です）",
+                        "name": "imageURL",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully fetched image",
+                        "schema": {
+                            "type": "file"
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "post": {
+                "description": "Create user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Create user",
+                "operationId": "create-user",
+                "parameters": [
+                    {
+                        "description": "User",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UserResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Delete user",
+                "operationId": "delete-user",
+                "parameters": [
+                    {
+                        "description": "User",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "deleted",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{email}": {
+            "get": {
+                "description": "Get user by email",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get user by email",
+                "operationId": "get-user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Email",
+                        "name": "email",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UserResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Update user",
+                "operationId": "update-user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Email",
+                        "name": "email",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "User",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.UserResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.FoodRequest": {
+            "type": "object",
+            "properties": {
+                "expiration_date": {
+                    "description": "Expiration date",
+                    "type": "string",
+                    "example": "2024-12-15T00:00:00Z"
+                },
+                "image_url": {
+                    "description": "URL of the food item image",
+                    "type": "string",
+                    "example": "images/orange.jpg"
+                },
+                "memo": {
+                    "description": "Additional notes or memo",
+                    "type": "string",
+                    "example": "新鮮なオレンジだったものです"
+                },
+                "name": {
+                    "description": "Name of the food item",
+                    "type": "string",
+                    "example": "オレンジ"
+                },
+                "original_code": {
+                    "description": "Original code of the food item",
+                    "type": "integer",
+                    "example": 12456456
+                },
+                "quantity": {
+                    "description": "Quantity of the food item",
+                    "type": "integer",
+                    "example": 5
+                },
+                "user_id": {
+                    "description": "User ID associated with the food item",
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "model.FoodResponse": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "description": "Creation timestamp",
+                    "type": "string",
+                    "example": "2024-09-25T11:46:43Z"
+                },
+                "expiration_date": {
+                    "description": "Expiration date",
+                    "type": "string",
+                    "example": "2024-12-15T00:00:00Z"
+                },
+                "id": {
+                    "description": "ID of the food item",
+                    "type": "integer",
+                    "example": 1
+                },
+                "image_url": {
+                    "description": "URL of the food item image",
+                    "type": "string",
+                    "example": "images/orange.jpg"
+                },
+                "memo": {
+                    "description": "Additional notes or memo",
+                    "type": "string",
+                    "example": "新鮮なオレンジだったものです"
+                },
+                "name": {
+                    "description": "Name of the food item",
+                    "type": "string",
+                    "example": "オレンジ"
+                },
+                "original_code": {
+                    "description": "Original code of the food item",
+                    "type": "integer",
+                    "example": 12456456
+                },
+                "quantity": {
+                    "description": "Quantity of the food item",
+                    "type": "integer",
+                    "example": 5
+                },
+                "user_id": {
+                    "description": "User ID associated with the food item",
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
+        "model.UserRequest": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "description": "Email of the user",
+                    "type": "string",
+                    "example": "sample@gmail.com"
+                },
+                "password": {
+                    "description": "Password of the user",
+                    "type": "string",
+                    "example": "password"
+                },
+                "username": {
+                    "description": "Username of the user",
+                    "type": "string",
+                    "example": "山田太郎"
+                }
+            }
+        },
+        "model.UserResponse": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "description": "Creation timestamp",
+                    "type": "string",
+                    "example": "2024-09-25T11:46:43Z"
+                },
+                "email": {
+                    "description": "Email of the user",
+                    "type": "string",
+                    "example": "sample@gmail.com"
+                },
+                "id": {
+                    "description": "ID of the user",
+                    "type": "integer",
+                    "example": 1
+                },
+                "username": {
+                    "description": "Username of the user",
+                    "type": "string",
+                    "example": "山田太郎"
+                }
+            }
+        }
+    }
+}

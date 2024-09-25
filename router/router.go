@@ -2,13 +2,20 @@ package router
 
 import (
 	"RefrigeratorWatchdog-server/controller"
+	_ "RefrigeratorWatchdog-server/docs"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
-// @
-func NewRouter(fc controller.IFoodController, uc controller.IUserController ,ic controller.IImageController) *echo.Echo {
+// @title Echo Swagger Example API
+// @version 1.0
+// @description This is a sample server for Swagger using Echo.
+
+// @host localhost:1323
+// @BasePath /api/v1
+func NewRouter(fc controller.IFoodController, uc controller.IUserController, ic controller.IImageController) *echo.Echo {
 	e := echo.New()
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"http://localhost:3000"},
@@ -17,6 +24,8 @@ func NewRouter(fc controller.IFoodController, uc controller.IUserController ,ic 
 		AllowMethods:     []string{"GET", "PUT", "POST", "DELETE"},
 		AllowCredentials: true,
 	}))
+
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	f := e.Group("/foods")
 	f.GET("/:id", fc.GetFoodsByUserID)
@@ -41,7 +50,7 @@ func NewRouter(fc controller.IFoodController, uc controller.IUserController ,ic 
 	u.GET("/:email", uc.GetUser)
 	u.POST("", uc.CreateUser)
 	u.PUT("/:email", uc.UpdateUser)
-	// POSTする際にuser情報をすべて送信する必要がある
+	// DELETEする際にuser情報をすべて送信する必要がある
 	u.DELETE("", uc.DeleteUser)
 
 	//POST例

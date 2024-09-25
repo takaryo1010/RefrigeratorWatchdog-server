@@ -4,27 +4,40 @@ import (
 	"time"
 )
 
+// Food represents a food item in the database.
 type Food struct {
-	ID             int       `json:"id" gorm:"primary_key"`
-	Name           string    `json:"name" gorm:"not null"`
-	UserID         int       `json:"user_id" gorm:"not null"`
-	OriginalCode   int       `json:"original_code"`
-	Quantity       int       `json:"quantity"`
-	CreatedAt      time.Time `json:"created_at"`
-	ExpirationDate time.Time `json:"expiration_date"`
-	ImageURL       string    `json:"image_url"`
-	Memo           string    `json:"memo"`
-	User           User      `gorm:"foreignKey:UserID"`
+	ID             int       `json:"id" gorm:"primary_key" example:"1"` // ID of the food item
+	Name           string    `json:"name" gorm:"not null" example:"オレンジ"` // Name of the food item
+	UserID         int       `json:"user_id" gorm:"not null" example:"1"` // User ID associated with the food item
+	OriginalCode   int       `json:"original_code" example:"12456456"` // Original code of the food item
+	Quantity       int       `json:"quantity" example:"5"` // Quantity of the food item
+	CreatedAt      time.Time `json:"created_at" example:"2024-09-25T11:46:43Z"` // Creation timestamp
+	ExpirationDate time.Time `json:"expiration_date" example:"2024-12-15T00:00:00Z"` // Expiration date
+	ImageURL       string    `json:"image_url" example:"images/orange.jpg"` // URL of the food item image
+	Memo           string    `json:"memo" example:"新鮮なオレンジだったものです"` // Additional notes or memo
+	User           User      `gorm:"foreignKey:UserID"` // User associated with the food item
 }
 
+// FoodResponse represents the response structure for a food item.
 type FoodResponse struct {
-	ID             int       `json:"id"`
-	Name           string    `json:"name"`
-	UserID         int       `json:"user_id"`
-	OriginalCode   int       `json:"original_code"`
-	Quantity       int       `json:"quantity"`
-	CreatedAt      time.Time `json:"created_at"`
-	ExpirationDate time.Time `json:"expiration_date"`
-	ImageURL       string    `json:"image_url"`
-	Memo           string    `json:"memo"`
+	ID             int       `json:"id" example:"1"` // ID of the food item
+	Name           string    `json:"name" example:"オレンジ"` // Name of the food item
+	UserID         int       `json:"user_id" example:"1"` // User ID associated with the food item
+	OriginalCode   int       `json:"original_code" example:"12456456"` // Original code of the food item
+	Quantity       int       `json:"quantity" example:"5"` // Quantity of the food item
+	CreatedAt      time.Time `json:"created_at" example:"2024-09-25T11:46:43Z"` // Creation timestamp
+	ExpirationDate time.Time `json:"expiration_date" example:"2024-12-15T00:00:00Z"` // Expiration date
+	ImageURL       string    `json:"image_url" example:"images/orange.jpg"` // URL of the food item image
+	Memo           string    `json:"memo" example:"新鮮なオレンジだったものです"` // Additional notes or memo
+}
+
+// FoodRequest represents the request structure for creating a new food item.
+type FoodRequest struct {
+	Name           string    `json:"name" example:"オレンジ"` // Name of the food item
+	UserID         int       `json:"user_id" example:"1"` // User ID associated with the food item
+	OriginalCode   int       `json:"original_code" example:"12456456"` // Original code of the food item
+	Quantity       int       `json:"quantity" example:"5"` // Quantity of the food item
+	ExpirationDate time.Time `json:"expiration_date" example:"2024-12-15T00:00:00Z"` // Expiration date
+	ImageURL       string    `json:"image_url" example:"images/orange.jpg"` // URL of the food item image
+	Memo           string    `json:"memo" example:"新鮮なオレンジだったものです"` // Additional notes or memo
 }

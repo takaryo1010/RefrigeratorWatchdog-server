@@ -22,6 +22,15 @@ func NewImageController(iu usecase.IImageUsecase) IImageController {
 	return &imageController{iu}
 }
 
+// UploadImage godoc
+// @Summary Upload image
+// @Description Upload image
+// @Tags image
+// @Accept  multipart/form-data
+// @Produce  json
+// @Param image formData file true "image"
+// @Success 200 {string} string "image url"
+// @Router /images [post]
 func (ic *imageController) UploadImage(c echo.Context) error {
 	imageFile, err := c.FormFile("image")
 	if err != nil {
@@ -44,9 +53,18 @@ func (ic *imageController) UploadImage(c echo.Context) error {
 	if err != nil {
 		return c.JSON(400, err)
 	}
-	return c.JSON(200, image)
+	return c.JSON(200, "images/"+image.Filename)
 }
 
+// FetchImage godoc
+// @Summary Fetch image
+// @Description Fetch image
+// @Tags image
+// @Accept  json
+// @Produce  json
+// @Param imageURL path string true "image URL（URLとは書いていますが、画像の名前のみで大丈夫です）"
+// @Router /images/{imageURL} [get]
+// @Success 200 {file} nil "Successfully fetched image"
 func (ic *imageController) FetchImage(c echo.Context) error {
 	imageURL := c.Param("imageURL")
 	image, err := ic.iu.FetchImage(imageURL)

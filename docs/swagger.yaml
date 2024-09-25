@@ -1,0 +1,340 @@
+definitions:
+  model.FoodRequest:
+    properties:
+      expiration_date:
+        description: Expiration date
+        example: "2024-12-15T00:00:00Z"
+        type: string
+      image_url:
+        description: URL of the food item image
+        example: images/orange.jpg
+        type: string
+      memo:
+        description: Additional notes or memo
+        example: 新鮮なオレンジだったものです
+        type: string
+      name:
+        description: Name of the food item
+        example: オレンジ
+        type: string
+      original_code:
+        description: Original code of the food item
+        example: 12456456
+        type: integer
+      quantity:
+        description: Quantity of the food item
+        example: 5
+        type: integer
+      user_id:
+        description: User ID associated with the food item
+        example: 1
+        type: integer
+    type: object
+  model.FoodResponse:
+    properties:
+      created_at:
+        description: Creation timestamp
+        example: "2024-09-25T11:46:43Z"
+        type: string
+      expiration_date:
+        description: Expiration date
+        example: "2024-12-15T00:00:00Z"
+        type: string
+      id:
+        description: ID of the food item
+        example: 1
+        type: integer
+      image_url:
+        description: URL of the food item image
+        example: images/orange.jpg
+        type: string
+      memo:
+        description: Additional notes or memo
+        example: 新鮮なオレンジだったものです
+        type: string
+      name:
+        description: Name of the food item
+        example: オレンジ
+        type: string
+      original_code:
+        description: Original code of the food item
+        example: 12456456
+        type: integer
+      quantity:
+        description: Quantity of the food item
+        example: 5
+        type: integer
+      user_id:
+        description: User ID associated with the food item
+        example: 1
+        type: integer
+    type: object
+  model.UserRequest:
+    properties:
+      email:
+        description: Email of the user
+        example: sample@gmail.com
+        type: string
+      password:
+        description: Password of the user
+        example: password
+        type: string
+      username:
+        description: Username of the user
+        example: 山田太郎
+        type: string
+    type: object
+  model.UserResponse:
+    properties:
+      created_at:
+        description: Creation timestamp
+        example: "2024-09-25T11:46:43Z"
+        type: string
+      email:
+        description: Email of the user
+        example: sample@gmail.com
+        type: string
+      id:
+        description: ID of the user
+        example: 1
+        type: integer
+      username:
+        description: Username of the user
+        example: 山田太郎
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /foods:
+    post:
+      consumes:
+      - application/json
+      description: Create food
+      operationId: create-food
+      parameters:
+      - description: Food
+        in: body
+        name: food
+        required: true
+        schema:
+          $ref: '#/definitions/model.FoodRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.FoodResponse'
+      summary: Create food
+      tags:
+      - foods
+  /foods/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete food
+      operationId: delete-food
+      parameters:
+      - description: Food ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: deleted
+          schema:
+            type: string
+      summary: Delete food
+      tags:
+      - foods
+    get:
+      consumes:
+      - application/json
+      description: Get foods by user id
+      operationId: get-foods-by-user-id
+      parameters:
+      - description: UserID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.FoodResponse'
+            type: array
+      summary: Get foods by user id
+      tags:
+      - foods
+    put:
+      consumes:
+      - application/json
+      description: Update food
+      operationId: update-food
+      parameters:
+      - description: Food ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Food
+        in: body
+        name: food
+        required: true
+        schema:
+          $ref: '#/definitions/model.FoodRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.FoodResponse'
+      summary: Update food
+      tags:
+      - foods
+  /images:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Upload image
+      parameters:
+      - description: image
+        in: formData
+        name: image
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: image url
+          schema:
+            type: string
+      summary: Upload image
+      tags:
+      - image
+  /images/{imageURL}:
+    get:
+      consumes:
+      - application/json
+      description: Fetch image
+      parameters:
+      - description: image URL（URLとは書いていますが、画像の名前のみで大丈夫です）
+        in: path
+        name: imageURL
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully fetched image
+          schema:
+            type: file
+      summary: Fetch image
+      tags:
+      - image
+  /users:
+    delete:
+      consumes:
+      - application/json
+      description: Delete user
+      operationId: delete-user
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: deleted
+          schema:
+            type: string
+      summary: Delete user
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Create user
+      operationId: create-user
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UserResponse'
+      summary: Create user
+      tags:
+      - users
+  /users/{email}:
+    get:
+      consumes:
+      - application/json
+      description: Get user by email
+      operationId: get-user
+      parameters:
+      - description: Email
+        in: path
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UserResponse'
+      summary: Get user by email
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Update user
+      operationId: update-user
+      parameters:
+      - description: Email
+        in: path
+        name: email
+        required: true
+        type: string
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UserResponse'
+      summary: Update user
+      tags:
+      - users
+swagger: "2.0"

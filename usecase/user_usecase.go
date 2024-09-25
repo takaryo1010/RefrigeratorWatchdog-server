@@ -12,7 +12,7 @@ import (
 type IUserUsecase interface {
 	GetUserByEmail(email string) (model.UserResponse, error)
 	CreateUser(user model.User) (model.UserResponse, error)
-	UpdateUser(user model.User,email string) (model.UserResponse, error)
+	UpdateUser(user model.User, email string) (model.UserResponse, error)
 	DeleteUser(user model.User) error
 }
 
@@ -64,7 +64,7 @@ func (uu *userUsecase) CreateUser(user model.User) (model.UserResponse, error) {
 	}, nil
 }
 
-func (uu *userUsecase) UpdateUser(user model.User,email string) (model.UserResponse, error) {
+func (uu *userUsecase) UpdateUser(user model.User, email string) (model.UserResponse, error) {
 	// ユーザー情報の検証
 	if err := uu.uv.ValidateUser(user); err != nil {
 		return model.UserResponse{}, err
@@ -74,9 +74,8 @@ func (uu *userUsecase) UpdateUser(user model.User,email string) (model.UserRespo
 	if user.Password != "" {
 		user.Password = hashPassword(user.Password)
 	}
-
 	// ユーザー情報の更新
-	if err := uu.ur.UpdateUser(&user,email); err != nil {
+	if err := uu.ur.UpdateUser(&user, email); err != nil {
 		return model.UserResponse{}, err
 	}
 
