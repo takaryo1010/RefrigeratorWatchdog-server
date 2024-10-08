@@ -15,6 +15,7 @@ type Food struct {
 	ExpirationDate time.Time `json:"expiration_date" example:"2024-12-15T00:00:00Z"` // Expiration date
 	ImageURL       string    `json:"image_url" example:"images/orange.jpg"` // URL of the food item image
 	Memo           string    `json:"memo" example:"新鮮なオレンジだったものです"` // Additional notes or memo
+	Tag            string    `json:"tag" gorm:"type:enum('野菜', '肉', '魚', '乳製品','調味料','卵','飲料','果物','加工食品','その他');default:'その他'"` // Tag of the food item
 	User           User      `gorm:"foreignKey:UserID"` // User associated with the food item
 }
 
@@ -28,6 +29,7 @@ type FoodResponse struct {
 	CreatedAt      time.Time `json:"created_at" example:"2024-09-25T11:46:43Z"` // Creation timestamp
 	ExpirationDate time.Time `json:"expiration_date" example:"2024-12-15T00:00:00Z"` // Expiration date
 	ImageURL       string    `json:"image_url" example:"images/orange.jpg"` // URL of the food item image
+	Tag 		  string    `json:"tag" example:"果物"` // Tag of the food item
 	Memo           string    `json:"memo" example:"新鮮なオレンジだったものです"` // Additional notes or memo
 }
 
@@ -39,5 +41,6 @@ type FoodRequest struct {
 	Quantity       int       `json:"quantity" example:"5"` // Quantity of the food item
 	ExpirationDate time.Time `json:"expiration_date" example:"2024-12-15T00:00:00Z"` // Expiration date
 	ImageURL       string    `json:"image_url" example:"images/orange.jpg"` // URL of the food item image
+	Tag 		  string    `json:"tag" example:"果物"` // Tag of the food item'野菜', '肉', '魚', '乳製品','調味料','卵','飲料','果物','加工食品','その他'
 	Memo           string    `json:"memo" example:"新鮮なオレンジだったものです"` // Additional notes or memo
 }

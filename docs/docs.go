@@ -398,6 +398,11 @@ const docTemplate = `{
                     "type": "integer",
                     "example": 5
                 },
+                "tag": {
+                    "description": "Tag of the food item'野菜', '肉', '魚', '乳製品','調味料','卵','飲料','果物','加工食品','その他'",
+                    "type": "string",
+                    "example": "果物"
+                },
                 "user_id": {
                     "description": "User ID associated with the food item",
                     "type": "integer",
@@ -447,6 +452,11 @@ const docTemplate = `{
                     "description": "Quantity of the food item",
                     "type": "integer",
                     "example": 5
+                },
+                "tag": {
+                    "description": "Tag of the food item",
+                    "type": "string",
+                    "example": "果物"
                 },
                 "user_id": {
                     "description": "User ID associated with the food item",
