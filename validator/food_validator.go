@@ -17,6 +17,9 @@ func NewFoodValidator() IFoodValidator {
 }
 
 func (fv *foodValidator) ValidateFood(food model.Food) error {
+	if food.Tag == "" {
+		food.Tag = "その他"
+	}
 	return validation.ValidateStruct(&food,
 		validation.Field(&food.Name, validation.Required, validation.Length(1, 255)),
 		validation.Field(&food.UserID, validation.Required),
