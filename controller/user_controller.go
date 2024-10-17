@@ -16,6 +16,7 @@ type IUserController interface {
 	CreateUser(c echo.Context) error
 	UpdateUser(c echo.Context) error
 	DeleteUser(c echo.Context) error
+	LoginUser(c echo.Context) error
 }
 
 type userController struct {
@@ -137,4 +138,36 @@ func (uc *userController) DeleteUser(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, "User deleted successfully")
+}
+
+
+
+// LoginUser godoc
+// @Summary Login user
+// @Description Login user
+// @ID login-user
+// @Accept  json
+// @Produce  json
+// @Param user body model.UserRequest true "User"
+// @Success 200 {object} model.UserResponse
+// @Router /users/login [post]
+// @Tags users
+func (uc *userController) LoginUser(c echo.Context)error{
+	user := model.User{}
+	if err := c.Bind(&user); err != nil {
+		return c.JSON(http.StatusBadRequest, err)
+	}
+
+	// メールアドレスをデコード
+	decodedEmail, err := url.QueryUnescape(user.Email)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{"error": "invalid email format"})
+	}
+
+	response ,err := uc.uu.LoginUser(user, decodedEmail)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusOK, response)
 }

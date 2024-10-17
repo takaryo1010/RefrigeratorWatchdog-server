@@ -7,6 +7,7 @@ import (
 	"RefrigeratorWatchdog-server/validator"
 
 	"golang.org/x/crypto/bcrypt"
+	"errors"
 )
 
 type IUserUsecase interface {
@@ -14,6 +15,7 @@ type IUserUsecase interface {
 	CreateUser(user model.User) (model.UserResponse, error)
 	UpdateUser(user model.User, email string) (model.UserResponse, error)
 	DeleteUser(user model.User) error
+	LoginUser(user model.User,decodedEmail string) (model.UserResponse, error)
 }
 
 type userUsecase struct {
@@ -101,4 +103,23 @@ func (uu *userUsecase) DeleteUser(user model.User) error {
 		return err
 	}
 	return nil
+}
+
+func (uu *userUsecase) LoginUser(user model.User,decodedEmail string) (model.UserResponse, error) {
+	getuser := model.User{}
+	if err := uu.ur.GetUserByEmail(&getuser, decodedEmail); err != nil {
+		return model.UserResponse{}, err
+	}
+	if !comparePassword(getuser.Password, user.Password) {
+		return model.UserResponse{}, model.ErrInvalidPassword
+	}
+	if user.Username != getuser.Username {
+		return model.UserResponse{}, errors.New("invalid username")
+	}
+	return model.UserResponse{
+		ID:        getuser.ID,
+		Username:  getuser.Username,
+		Email:     getuser.Email,
+		CreatedAt: getuser.CreatedAt,
+	}, nil
 }

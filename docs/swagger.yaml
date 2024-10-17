@@ -337,4 +337,27 @@ paths:
       summary: Update user
       tags:
       - users
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      description: Login user
+      operationId: login-user
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UserResponse'
+      summary: Login user
+      tags:
+      - users
 swagger: "2.0"
