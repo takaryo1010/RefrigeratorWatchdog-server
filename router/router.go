@@ -52,6 +52,7 @@ func NewRouter(fc controller.IFoodController, uc controller.IUserController, ic 
 	u.PUT("/:email", uc.UpdateUser)
 	// DELETEする際にuser情報をすべて送信する必要がある
 	u.DELETE("", uc.DeleteUser)
+	u.POST("/login", uc.LoginUser)
 
 	//POST例
 	/*
