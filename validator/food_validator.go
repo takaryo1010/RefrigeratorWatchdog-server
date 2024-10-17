@@ -17,6 +17,9 @@ func NewFoodValidator() IFoodValidator {
 }
 
 func (fv *foodValidator) ValidateFood(food model.Food) error {
+	if food.Tag == "" {
+		food.Tag = "その他"
+	}
 	return validation.ValidateStruct(&food,
 		validation.Field(&food.Name, validation.Required, validation.Length(1, 255)),
 		validation.Field(&food.UserID, validation.Required),
@@ -25,5 +28,6 @@ func (fv *foodValidator) ValidateFood(food model.Food) error {
 		validation.Field(&food.ExpirationDate, validation.Required),
 		validation.Field(&food.ImageURL, validation.Required, validation.Length(1, 255)),
 		validation.Field(&food.Memo, validation.Required, validation.Length(1, 1000)),
+		validation.Field(&food.Tag, validation.Required, validation.In("野菜", "肉", "魚", "乳製品", "調味料", "卵", "飲料", "果物", "加工食品", "その他")),
 	)
 }

@@ -39,6 +39,7 @@ func (fu *foodUsecase) GetFoodsByUserID(userID uint) ([]model.FoodResponse, erro
 			CreatedAt:      food.CreatedAt,
 			ExpirationDate: food.ExpirationDate,
 			ImageURL:       food.ImageURL,
+			Tag:            food.Tag,
 			Memo:           food.Memo,
 		})
 	}
@@ -63,6 +64,7 @@ func (fu *foodUsecase) CreateFood(food model.Food) (model.FoodResponse, error) {
 		CreatedAt:      food.CreatedAt,
 		ExpirationDate: food.ExpirationDate,
 		ImageURL:       food.ImageURL,
+		Tag:            food.Tag,
 		Memo:           food.Memo,
 	}, nil
 }
@@ -85,6 +87,7 @@ func (fu *foodUsecase) UpdateFood(food model.Food, id uint) (model.FoodResponse,
 		CreatedAt:      food.CreatedAt,
 		ExpirationDate: food.ExpirationDate,
 		ImageURL:       food.ImageURL,
+		Tag:            food.Tag,
 		Memo:           food.Memo,
 	}, nil
 }

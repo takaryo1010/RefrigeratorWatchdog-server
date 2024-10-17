@@ -25,6 +25,10 @@ definitions:
         description: Quantity of the food item
         example: 5
         type: integer
+      tag:
+        description: Tag of the food item'野菜', '肉', '魚', '乳製品','調味料','卵','飲料','果物','加工食品','その他'
+        example: 果物
+        type: string
       user_id:
         description: User ID associated with the food item
         example: 1
@@ -64,6 +68,10 @@ definitions:
         description: Quantity of the food item
         example: 5
         type: integer
+      tag:
+        description: Tag of the food item
+        example: 果物
+        type: string
       user_id:
         description: User ID associated with the food item
         example: 1
