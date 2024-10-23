@@ -34,7 +34,7 @@ func (fv *foodValidator) ValidateFood(food model.Food) error {
 }
 
 func allowNilTime(value interface{}) error {
-    if value == nil {
+    if value == "" {
         return nil
     }
     _, ok := value.(*time.Time)
