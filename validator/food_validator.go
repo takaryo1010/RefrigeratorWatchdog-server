@@ -21,13 +21,13 @@ func (fv *foodValidator) ValidateFood(food model.Food) error {
 		food.Tag = "その他"
 	}
 	return validation.ValidateStruct(&food,
-		validation.Field(&food.Name, validation.Required, validation.Length(1, 255)),
+		validation.Field(&food.Name,  validation.Length(1, 255)),
 		validation.Field(&food.UserID, validation.Required),
-		validation.Field(&food.OriginalCode, validation.Required, validation.Min(1), validation.Max(10000000000000)),
-		validation.Field(&food.Quantity, validation.Required),
-		validation.Field(&food.ExpirationDate, validation.Required),
-		validation.Field(&food.ImageURL, validation.Required, validation.Length(1, 255)),
-		validation.Field(&food.Memo, validation.Required, validation.Length(1, 1000)),
-		validation.Field(&food.Tag, validation.Required, validation.In("野菜", "肉", "魚", "乳製品", "調味料", "卵", "飲料", "果物", "加工食品", "その他")),
+		validation.Field(&food.OriginalCode,  validation.Min(0), validation.Max(10000000000000)),
+		validation.Field(&food.Quantity, validation.Min(0), validation.Max(10000000000000)),
+		validation.Field(&food.ExpirationDate),
+		validation.Field(&food.ImageURL,  validation.Length(0, 10000)),
+		validation.Field(&food.Memo, validation.Length(0, 1000)),
+		validation.Field(&food.Tag, validation.In("野菜", "肉", "魚", "乳製品", "調味料", "卵", "飲料", "果物", "加工食品", "その他","")),
 	)
 }
