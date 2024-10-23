@@ -24,7 +24,7 @@ func (fv *foodValidator) ValidateFood(food model.Food) error {
 		validation.Field(&food.Name,  validation.Length(1, 255)),
 		validation.Field(&food.UserID, validation.Required),
 		validation.Field(&food.OriginalCode,  validation.Min(0), validation.Max(10000000000000)),
-		validation.Field(&food.Quantity, validation.Min(0), validation.Max(10000000000000)),
+		validation.Field(&food.Quantity, validation.Min(0.0), validation.Max(10000000000000.0)),
 		validation.Field(&food.ExpirationDate),
 		validation.Field(&food.ImageURL,  validation.Length(0, 10000)),
 		validation.Field(&food.Memo, validation.Length(0, 1000)),
