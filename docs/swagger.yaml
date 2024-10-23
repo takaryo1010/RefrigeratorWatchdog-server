@@ -23,8 +23,8 @@ definitions:
         type: integer
       quantity:
         description: Quantity of the food item
-        example: 5
-        type: integer
+        example: 5.5
+        type: number
       tag:
         description: Tag of the food item'野菜', '肉', '魚', '乳製品','調味料','卵','飲料','果物','加工食品','その他'
         example: 果物
@@ -66,8 +66,8 @@ definitions:
         type: integer
       quantity:
         description: Quantity of the food item
-        example: 5
-        type: integer
+        example: 5.5
+        type: number
       tag:
         description: Tag of the food item
         example: 果物
