@@ -1,1 +1,2 @@
 # RefrigeratorWatchdog-server
+Sensing Solution ハッカソンで提出した冷蔵庫管理機のサーバーアプリケーションです。
